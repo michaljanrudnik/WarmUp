@@ -7,7 +7,12 @@ public class FileFinder {
         File[] list = file.listFiles();
         if(list != null)
             for (File fil : list) {
-                if (fil)
+                if (fil.isDirectory()) {
+                    findFile(name,fil);
+                }
+                else if (name.equalsIgnoreCase(fil.getName())) {
+                    System.out.println(fil.getParentFile());
+                }
             }
     }
 
@@ -17,6 +22,8 @@ public class FileFinder {
         String directory = scan.next();
         System.out.println("Enter file name to be searched ");
         String name = scan.next();
+        FileFinder ff = new FileFinder();
+        ff.findFile(name, new File(directory));
 
     }
 }
