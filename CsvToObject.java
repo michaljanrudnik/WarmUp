@@ -2,7 +2,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
+//import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -58,7 +58,7 @@ public class CsvToObject {
         for (int i = 0; i < parseCSV.size(); i++) {
             System.out.println(parseCSV.get(i));
             String[] CSVLineArray = parseCSV.get(i).split(",");
-            persons[counter] = new Person(CSVLineArray[1],CSVLineArray[2],Integer.parseInt(CSVLineArray[3]));
+            persons[counter] = new Person(CSVLineArray[0],CSVLineArray[1],Integer.parseInt(CSVLineArray[2]));
             counter++;
         }
 
