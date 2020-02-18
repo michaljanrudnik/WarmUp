@@ -52,7 +52,15 @@ public class CsvToObject {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(Arrays.toString(parseCSV.toArray()));
+        Person[] persons = new Person[parseCSV.size()];
+        int counter = 0;
+        //System.out.println(Arrays.toString(parseCSV.toArray()));
+        for (int i = 0; i < parseCSV.size(); i++) {
+            System.out.println(parseCSV.get(i));
+            String[] CSVLineArray = parseCSV.get(i).split(",");
+            persons[counter] = new Person(CSVLineArray[1],CSVLineArray[2],Integer.parseInt(CSVLineArray[3]));
+            counter++;
+        }
 
     }
 
