@@ -22,7 +22,7 @@ public class TableSort {
         TableSort ts = new TableSort();
         table = ts.sort(table);
         for (int i : table)
-            System.out.println(table[i]);
+            System.out.println(i);
 
     }
 }
