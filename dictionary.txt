@@ -1,0 +1,12 @@
+good
+bad
+cat
+dog
+test
+castle
+cell
+catastrophe
+magic
+may
+goose
+document
