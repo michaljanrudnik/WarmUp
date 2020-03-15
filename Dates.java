@@ -123,6 +123,75 @@ public class Dates {
     }
 
     public void sortDate() {
+        List<DateAndNote> listToSort = readFile();
+        DateAndNote temp;
+        boolean check = false;
+        int counter;
+
+
+        while(!check) {
+            counter = 0;
+            for (int i = 0; i < listToSort.size() - 1; i++) {
+                temp = listToSort.get(i);
+                if (!listToSort.get(i).getDateAndHour().before(listToSort.get(i + 1).getDateAndHour())) {
+                    listToSort.set(i,listToSort.get(i+1));
+                    listToSort.set(i+1,temp);
+                    counter++;
+                }
+            }
+            if (counter == 0)
+                check = true;
+        }
+        writeFile(listToSort);
+        showDates();
+    }
+
+    public void showFromPeriod() {
+        List<DateAndNote> toShow = readFile();
+        Scanner scan = new Scanner(System.in);
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+        Date before = null,after = null;
+        String temp;
+        System.out.println("Enter after date (yyyy.mm.dd hh:mm) - if not needed leave empty");
+        temp = scan.nextLine();
+        if (temp.length() > 0) {
+            try {
+                after = sdf1.parse(temp);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("Enter before date (yyyy.mm.dd hh:mm) - if not needed leave empty");
+        temp = scan.nextLine();
+        if (temp.length() > 0) {
+            try {
+                before = sdf1.parse(temp);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (before != null && after != null) {
+            for (DateAndNote dateAndNote : toShow) {
+                if (dateAndNote.getDateAndHour().before(before) && dateAndNote.getDateAndHour().after(after)) {
+                    System.out.println(sdf1.format(dateAndNote.getDateAndHour()) + " " + dateAndNote.getNote());
+                }
+            }
+        }
+        else if (before != null && after == null) {
+            for (DateAndNote dateAndNote : toShow) {
+                if (dateAndNote.getDateAndHour().before(before)) {
+                    System.out.println(sdf1.format(dateAndNote.getDateAndHour()) + " " + dateAndNote.getNote());
+                }
+            }
+        }
+        else if (before == null && after != null) {
+            for (DateAndNote dateAndNote : toShow) {
+                if (dateAndNote.getDateAndHour().after(after)) {
+                    System.out.println(sdf1.format(dateAndNote.getDateAndHour()) + " " + dateAndNote.getNote());
+                }
+            }
+        }
 
     }
 
@@ -133,11 +202,14 @@ public class Dates {
         int choice;
 
         while(!exit) {
+            System.out.println(System.lineSeparator());
             System.out.println("Menu");
             System.out.println("1. Show dates");
             System.out.println("2. Add date");
             System.out.println("3. Sort and show");
+            System.out.println("4. Show from period");
             System.out.println("0. Exit");
+            System.out.println(System.lineSeparator());
 
             choice = scan.nextInt();
 
@@ -149,7 +221,10 @@ public class Dates {
                     start.addDate();
                     break;
                 case 3 :
-
+                    start.sortDate();
+                    break;
+                case 4 :
+                    start.showFromPeriod();
                     break;
                 case 0 :
                     exit = true;
